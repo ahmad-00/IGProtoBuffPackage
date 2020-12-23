@@ -2776,6 +2776,7 @@ public struct IGPDiscovery: SwiftProtobuf.Message {
     case model6 // = 5
     case model7 // = 6
     case model8 // = 7
+    case model9 // = 8
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -2792,6 +2793,7 @@ public struct IGPDiscovery: SwiftProtobuf.Message {
       case 5: self = .model6
       case 6: self = .model7
       case 7: self = .model8
+      case 8: self = .model9
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -2806,6 +2808,7 @@ public struct IGPDiscovery: SwiftProtobuf.Message {
       case .model6: return 5
       case .model7: return 6
       case .model8: return 7
+      case .model9: return 8
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -2828,6 +2831,7 @@ extension IGPDiscovery.IGPDiscoveryModel: CaseIterable {
     .model6,
     .model7,
     .model8,
+    .model9,
   ]
 }
 
@@ -6370,6 +6374,7 @@ extension IGPDiscovery.IGPDiscoveryModel: SwiftProtobuf._ProtoNameProviding {
     5: .same(proto: "MODEL6"),
     6: .same(proto: "MODEL7"),
     7: .same(proto: "MODEL8"),
+    8: .same(proto: "MODEL9"),
   ]
 }
 

@@ -43,12 +43,61 @@ public struct IGPMplGetBillToken: SwiftProtobuf.RequestMessage {
     set {_uniqueStorage()._igpPayID = newValue}
   }
 
+  public var igpType: IGPMplGetBillToken.IGPType {
+    get {return _storage._igpType}
+    set {_uniqueStorage()._igpType = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public enum IGPType: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+    case none // = 0
+    case midTerm // = 1
+    case lastTerm // = 2
+    case UNRECOGNIZED(Int)
+
+    public init() {
+      self = .none
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .none
+      case 1: self = .midTerm
+      case 2: self = .lastTerm
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    public var rawValue: Int {
+      switch self {
+      case .none: return 0
+      case .midTerm: return 1
+      case .lastTerm: return 2
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
 
   public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
+
+#if swift(>=4.2)
+
+extension IGPMplGetBillToken.IGPType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [IGPMplGetBillToken.IGPType] = [
+    .none,
+    .midTerm,
+    .lastTerm,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 public struct IGPMplGetBillTokenResponse: SwiftProtobuf.ResponseMessage {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -84,6 +133,21 @@ public struct IGPMplGetBillTokenResponse: SwiftProtobuf.ResponseMessage {
     set {_uniqueStorage()._igpMessage = newValue}
   }
 
+  public var igpDiscountAmount: Int32 {
+    get {return _storage._igpDiscountAmount}
+    set {_uniqueStorage()._igpDiscountAmount = newValue}
+  }
+
+  public var igpOriginalAmount: Int32 {
+    get {return _storage._igpOriginalAmount}
+    set {_uniqueStorage()._igpOriginalAmount = newValue}
+  }
+
+  public var igpNewPayID: Int32 {
+    get {return _storage._igpNewPayID}
+    set {_uniqueStorage()._igpNewPayID = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -99,12 +163,14 @@ extension IGPMplGetBillToken: SwiftProtobuf._MessageImplementationBase, SwiftPro
     1: .standard(proto: "IGP_request"),
     2: .standard(proto: "IGP_bill_id"),
     3: .standard(proto: "IGP_pay_id"),
+    4: .standard(proto: "IGP_type"),
   ]
 
   fileprivate class _StorageClass {
     var _igpRequest: IGPRequest? = nil
     var _igpBillID: Int64 = 0
     var _igpPayID: Int64 = 0
+    var _igpType: IGPMplGetBillToken.IGPType = .none
 
     static let defaultInstance = _StorageClass()
 
@@ -114,6 +180,7 @@ extension IGPMplGetBillToken: SwiftProtobuf._MessageImplementationBase, SwiftPro
       _igpRequest = source._igpRequest
       _igpBillID = source._igpBillID
       _igpPayID = source._igpPayID
+      _igpType = source._igpType
     }
   }
 
@@ -132,6 +199,7 @@ extension IGPMplGetBillToken: SwiftProtobuf._MessageImplementationBase, SwiftPro
         case 1: try decoder.decodeSingularMessageField(value: &_storage._igpRequest)
         case 2: try decoder.decodeSingularInt64Field(value: &_storage._igpBillID)
         case 3: try decoder.decodeSingularInt64Field(value: &_storage._igpPayID)
+        case 4: try decoder.decodeSingularEnumField(value: &_storage._igpType)
         default: break
         }
       }
@@ -149,6 +217,9 @@ extension IGPMplGetBillToken: SwiftProtobuf._MessageImplementationBase, SwiftPro
       if _storage._igpPayID != 0 {
         try visitor.visitSingularInt64Field(value: _storage._igpPayID, fieldNumber: 3)
       }
+      if _storage._igpType != .none {
+        try visitor.visitSingularEnumField(value: _storage._igpType, fieldNumber: 4)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -161,6 +232,7 @@ extension IGPMplGetBillToken: SwiftProtobuf._MessageImplementationBase, SwiftPro
         if _storage._igpRequest != rhs_storage._igpRequest {return false}
         if _storage._igpBillID != rhs_storage._igpBillID {return false}
         if _storage._igpPayID != rhs_storage._igpPayID {return false}
+        if _storage._igpType != rhs_storage._igpType {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -168,6 +240,14 @@ extension IGPMplGetBillToken: SwiftProtobuf._MessageImplementationBase, SwiftPro
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension IGPMplGetBillToken.IGPType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NONE"),
+    1: .same(proto: "MID_TERM"),
+    2: .same(proto: "LAST_TERM"),
+  ]
 }
 
 extension IGPMplGetBillTokenResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -178,6 +258,9 @@ extension IGPMplGetBillTokenResponse: SwiftProtobuf._MessageImplementationBase, 
     3: .standard(proto: "IGP_token"),
     4: .standard(proto: "IGP_expire_time"),
     5: .standard(proto: "IGP_message"),
+    6: .standard(proto: "IGP_discount_amount"),
+    7: .standard(proto: "IGP_original_amount"),
+    8: .standard(proto: "IGP_new_pay_id"),
   ]
 
   fileprivate class _StorageClass {
@@ -186,6 +269,9 @@ extension IGPMplGetBillTokenResponse: SwiftProtobuf._MessageImplementationBase, 
     var _igpToken: String = String()
     var _igpExpireTime: Int32 = 0
     var _igpMessage: String = String()
+    var _igpDiscountAmount: Int32 = 0
+    var _igpOriginalAmount: Int32 = 0
+    var _igpNewPayID: Int32 = 0
 
     static let defaultInstance = _StorageClass()
 
@@ -197,6 +283,9 @@ extension IGPMplGetBillTokenResponse: SwiftProtobuf._MessageImplementationBase, 
       _igpToken = source._igpToken
       _igpExpireTime = source._igpExpireTime
       _igpMessage = source._igpMessage
+      _igpDiscountAmount = source._igpDiscountAmount
+      _igpOriginalAmount = source._igpOriginalAmount
+      _igpNewPayID = source._igpNewPayID
     }
   }
 
@@ -217,6 +306,9 @@ extension IGPMplGetBillTokenResponse: SwiftProtobuf._MessageImplementationBase, 
         case 3: try decoder.decodeSingularStringField(value: &_storage._igpToken)
         case 4: try decoder.decodeSingularInt32Field(value: &_storage._igpExpireTime)
         case 5: try decoder.decodeSingularStringField(value: &_storage._igpMessage)
+        case 6: try decoder.decodeSingularInt32Field(value: &_storage._igpDiscountAmount)
+        case 7: try decoder.decodeSingularInt32Field(value: &_storage._igpOriginalAmount)
+        case 8: try decoder.decodeSingularInt32Field(value: &_storage._igpNewPayID)
         default: break
         }
       }
@@ -240,6 +332,15 @@ extension IGPMplGetBillTokenResponse: SwiftProtobuf._MessageImplementationBase, 
       if !_storage._igpMessage.isEmpty {
         try visitor.visitSingularStringField(value: _storage._igpMessage, fieldNumber: 5)
       }
+      if _storage._igpDiscountAmount != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._igpDiscountAmount, fieldNumber: 6)
+      }
+      if _storage._igpOriginalAmount != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._igpOriginalAmount, fieldNumber: 7)
+      }
+      if _storage._igpNewPayID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._igpNewPayID, fieldNumber: 8)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -254,6 +355,9 @@ extension IGPMplGetBillTokenResponse: SwiftProtobuf._MessageImplementationBase, 
         if _storage._igpToken != rhs_storage._igpToken {return false}
         if _storage._igpExpireTime != rhs_storage._igpExpireTime {return false}
         if _storage._igpMessage != rhs_storage._igpMessage {return false}
+        if _storage._igpDiscountAmount != rhs_storage._igpDiscountAmount {return false}
+        if _storage._igpOriginalAmount != rhs_storage._igpOriginalAmount {return false}
+        if _storage._igpNewPayID != rhs_storage._igpNewPayID {return false}
         return true
       }
       if !storagesAreEqual {return false}

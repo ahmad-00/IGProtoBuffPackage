@@ -43,6 +43,11 @@ public struct IGPClientGetDiscovery: SwiftProtobuf.RequestMessage {
     set {_uniqueStorage()._igpProjectID = newValue}
   }
 
+  public var igpItemID: Int32 {
+    get {return _storage._igpItemID}
+    set {_uniqueStorage()._igpItemID = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -89,12 +94,14 @@ extension IGPClientGetDiscovery: SwiftProtobuf._MessageImplementationBase, Swift
     1: .standard(proto: "IGP_request"),
     2: .standard(proto: "IGP_page_id"),
     3: .standard(proto: "IGP_project_id"),
+    4: .standard(proto: "IGP_item_id"),
   ]
 
   fileprivate class _StorageClass {
     var _igpRequest: IGPRequest? = nil
     var _igpPageID: Int32 = 0
     var _igpProjectID: Int32 = 0
+    var _igpItemID: Int32 = 0
 
     static let defaultInstance = _StorageClass()
 
@@ -104,6 +111,7 @@ extension IGPClientGetDiscovery: SwiftProtobuf._MessageImplementationBase, Swift
       _igpRequest = source._igpRequest
       _igpPageID = source._igpPageID
       _igpProjectID = source._igpProjectID
+      _igpItemID = source._igpItemID
     }
   }
 
@@ -122,6 +130,7 @@ extension IGPClientGetDiscovery: SwiftProtobuf._MessageImplementationBase, Swift
         case 1: try decoder.decodeSingularMessageField(value: &_storage._igpRequest)
         case 2: try decoder.decodeSingularInt32Field(value: &_storage._igpPageID)
         case 3: try decoder.decodeSingularInt32Field(value: &_storage._igpProjectID)
+        case 4: try decoder.decodeSingularInt32Field(value: &_storage._igpItemID)
         default: break
         }
       }
@@ -139,6 +148,9 @@ extension IGPClientGetDiscovery: SwiftProtobuf._MessageImplementationBase, Swift
       if _storage._igpProjectID != 0 {
         try visitor.visitSingularInt32Field(value: _storage._igpProjectID, fieldNumber: 3)
       }
+      if _storage._igpItemID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._igpItemID, fieldNumber: 4)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -151,6 +163,7 @@ extension IGPClientGetDiscovery: SwiftProtobuf._MessageImplementationBase, Swift
         if _storage._igpRequest != rhs_storage._igpRequest {return false}
         if _storage._igpPageID != rhs_storage._igpPageID {return false}
         if _storage._igpProjectID != rhs_storage._igpProjectID {return false}
+        if _storage._igpItemID != rhs_storage._igpItemID {return false}
         return true
       }
       if !storagesAreEqual {return false}
