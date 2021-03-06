@@ -148,6 +148,11 @@ public struct IGPMplGetBillTokenResponse: SwiftProtobuf.ResponseMessage {
     set {_uniqueStorage()._igpNewPayID = newValue}
   }
 
+  public var igpOrganizationName: String {
+    get {return _storage._igpOrganizationName}
+    set {_uniqueStorage()._igpOrganizationName = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -261,6 +266,7 @@ extension IGPMplGetBillTokenResponse: SwiftProtobuf._MessageImplementationBase, 
     6: .standard(proto: "IGP_discount_amount"),
     7: .standard(proto: "IGP_original_amount"),
     8: .standard(proto: "IGP_new_pay_id"),
+    9: .standard(proto: "IGP_organization_name"),
   ]
 
   fileprivate class _StorageClass {
@@ -272,6 +278,7 @@ extension IGPMplGetBillTokenResponse: SwiftProtobuf._MessageImplementationBase, 
     var _igpDiscountAmount: Int32 = 0
     var _igpOriginalAmount: Int32 = 0
     var _igpNewPayID: Int32 = 0
+    var _igpOrganizationName: String = String()
 
     static let defaultInstance = _StorageClass()
 
@@ -286,6 +293,7 @@ extension IGPMplGetBillTokenResponse: SwiftProtobuf._MessageImplementationBase, 
       _igpDiscountAmount = source._igpDiscountAmount
       _igpOriginalAmount = source._igpOriginalAmount
       _igpNewPayID = source._igpNewPayID
+      _igpOrganizationName = source._igpOrganizationName
     }
   }
 
@@ -309,6 +317,7 @@ extension IGPMplGetBillTokenResponse: SwiftProtobuf._MessageImplementationBase, 
         case 6: try decoder.decodeSingularInt32Field(value: &_storage._igpDiscountAmount)
         case 7: try decoder.decodeSingularInt32Field(value: &_storage._igpOriginalAmount)
         case 8: try decoder.decodeSingularInt32Field(value: &_storage._igpNewPayID)
+        case 9: try decoder.decodeSingularStringField(value: &_storage._igpOrganizationName)
         default: break
         }
       }
@@ -341,6 +350,9 @@ extension IGPMplGetBillTokenResponse: SwiftProtobuf._MessageImplementationBase, 
       if _storage._igpNewPayID != 0 {
         try visitor.visitSingularInt32Field(value: _storage._igpNewPayID, fieldNumber: 8)
       }
+      if !_storage._igpOrganizationName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._igpOrganizationName, fieldNumber: 9)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -358,6 +370,7 @@ extension IGPMplGetBillTokenResponse: SwiftProtobuf._MessageImplementationBase, 
         if _storage._igpDiscountAmount != rhs_storage._igpDiscountAmount {return false}
         if _storage._igpOriginalAmount != rhs_storage._igpOriginalAmount {return false}
         if _storage._igpNewPayID != rhs_storage._igpNewPayID {return false}
+        if _storage._igpOrganizationName != rhs_storage._igpOrganizationName {return false}
         return true
       }
       if !storagesAreEqual {return false}
